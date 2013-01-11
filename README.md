@@ -16,6 +16,7 @@ Now disregard that and install it the old fashioned way anyway (we need the head
 
     curl http://www.sqlite.org/sqlite-autoconf-3071400.tar.gz -o sqlite-autoconf-3071400.tar.gz
     tar xvf sqlite-autoconf-*.tar.gz -C ./
+    cd sqlite-autoconf-*/
     ./configure
     make
     sudo make install
