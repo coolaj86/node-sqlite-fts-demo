@@ -4,7 +4,7 @@ NodeJS Full-Text Search Demo
 This is mostly a sqlite3 fts demo, but with a little NodeJS sprinkled in for added pleasure.
 
 
-SQLite3-FTS v3.7.14
+SQLite3-FTS v3.8.2
 ===
 
 Check to see if you already have SQLite at the correct version:
@@ -12,9 +12,11 @@ Check to see if you already have SQLite at the correct version:
     sqlite3 --version
     which sqlite3
 
+Remove old versions of sqlite3 if necessary (see appendix). This is especially important on Linux.
+
 Now disregard that and install it the old fashioned way anyway (we need the headers and such)
 
-    curl http://www.sqlite.org/sqlite-autoconf-3071400.tar.gz -o sqlite-autoconf-3071400.tar.gz
+    curl http://www.sqlite.org/2013/sqlite-autoconf-3080200.tar.gz -o sqlite-autoconf-3080200.tar.gz
     tar xvf sqlite-autoconf-*.tar.gz -C ./
     cd sqlite-autoconf-*/
     ./configure
@@ -84,6 +86,8 @@ NodeJS-FTS
 Appendix
 ===
 
+If you get the `SQLite header and source version mismatch` error when trying to run SQLite, make sure that you've completely removed the previous version including its library and development files (read on below).
+
 Mac OS X
 ---
 
@@ -98,7 +102,29 @@ If you have problems because you've already installed sqlite3 with homebrew, giv
 Ubuntu Linux
 ---
 
-    sudo apt-get install build-essential git
+Bring the system up-to-date
+
+    sudo apt-get update
+    sudo apt-get upgrade --yes
+    
+You should probably also perform
+
+    sudo apt-get dist-upgrade --yes
+    
+Remove any old versions of the sqlite3 commandline tool
+
+    sudo apt-get remove --purge --yes sqlite3
+    
+Install the necessary build tools
+
+    sudo apt-get install build-essential git curl wget
+    
+Manually remove `libsqlite3-0` and  `libsqlite3-dev`. You **must manually remove** these packages, otherwise they will be reinstalled anytime that another package relies on them. You may occasionally have to manually remove them again after a `upgrade` or `dist-upgrade`
+
+    rm -rf /usr/lib/*sqlite3*
+    rm -rf /usr/lib/*/*sqlite3*
+    rm -rf /usr/include/*sqlite3*
+    rm -rf /usr/include/*/*sqlite3*
 
 Windows
 ---
