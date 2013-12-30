@@ -121,10 +121,14 @@ Install the necessary build tools
     
 Manually remove `libsqlite3-0` and  `libsqlite3-dev`. You **must manually remove** these packages, otherwise they will be reinstalled anytime that another package relies on them. You may occasionally have to manually remove them again after a `upgrade` or `dist-upgrade`
 
-    rm -rf /usr/lib/*sqlite3*
-    rm -rf /usr/lib/*/*sqlite3*
-    rm -rf /usr/include/*sqlite3*
-    rm -rf /usr/include/*/*sqlite3*
+    sudo rm -rf /usr/lib/*sqlite3* || true
+    sudo rm -rf /usr/lib/*/*sqlite3* || true
+    sudo rm -rf /usr/include/*sqlite3* || true
+    sudo rm -rf /usr/include/*/*sqlite3* || true
+    
+    # or do the same thing using find
+    sudo find /usr/lib -iname '*sqlite3*' -print -exec rm -rf {} \;
+    sudo find /usr/include -iname '*sqlite3*' -print -exec rm -rf {} \;
 
 Windows
 ---
